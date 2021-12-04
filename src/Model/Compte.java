@@ -76,11 +76,7 @@ public class Compte {
 
     @Override
     public String toString() {
-        return "Compte{" +
-                "num=" + num +
-                ", client=" + client +
-                ", solde=" + solde +
-                ", decouvert=" + decouvert +
-                '}';
+        return"Nom: " + client.getNom() + " Prenom: " + client.getPrenom() + " Adresse: " + client.getAdresse() + " solde: "+ getSolde()  ;
+
     }
 }

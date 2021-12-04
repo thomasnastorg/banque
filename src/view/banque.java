@@ -1,3 +1,5 @@
+package view;
+
 import Model.Client;
 import Model.Compte;
 
@@ -21,11 +23,11 @@ public class banque {
     public JMenuItem myCredit;
     private JMenuItem myDecouvert;
     private JMenuItem myClient;
-    private JList list1;
     private JButton update;
-    private JList liste;
-    private JScrollPane scroll;
-    private DefaultListModel listModel;
+    private JList list1;
+
+
+
 
     private Boolean toto = false;
     private ArrayList<Compte> Lc = new ArrayList<Compte>();
@@ -35,7 +37,7 @@ public class banque {
         textField1.setVisible(false);
         etat.setVisible(false);
 
-        Client cl1 = new Client(1,"as","DD","DE");
+        Client cl1 = new Client(1,"nastorg","thomas","20 rue des cavee feucheurolles");
         Compte c1 = new Compte(1,cl1);
 
         Client cl2 = new Client(2,"cc","jj","ss");
@@ -45,7 +47,7 @@ public class banque {
         Lc.add(c1);
         Lc.add(c2);
         Lc.add(c3);
-
+        System.out.println((c1.toString()));
 
 
 
@@ -53,7 +55,7 @@ public class banque {
             @Override
             public void actionPerformed(ActionEvent e) {
                 etat.setVisible(true);
-                etat.setText("Montant a craditer");
+                etat.setText("Montant a créditer");
                 textField1.setVisible(true);
                 button1.setVisible(true);
                 button1.setText("crediter");
@@ -93,13 +95,19 @@ public class banque {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel DLM = new DefaultListModel();
-                DLM.addElement("toto");
-                DLM.addElement("ofof");
-                liste.setModel(DLM);
+                DefaultListModel listModel = new DefaultListModel();
+                for (Compte c: Lc ) {
+                    listModel.addElement(c.toString());
+                }
+                /*
+                for (int i = 0; i < 10; i++) {
+                    listModel.addElement("item : " + i);
+                }*/
+                list1.setModel(listModel);
             }
         });
     }
+
     private void refreceh(DefaultListModel test){
        /* for (Compte c: Lc  ) {
 
@@ -109,6 +117,7 @@ public class banque {
         test.addElement("toto");
         liste.setModel(test);*/
     }
+
     public static void main(String[] args) {
 
         JFrame frame = new JFrame("Banque");
