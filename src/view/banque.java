@@ -5,6 +5,7 @@ import Model.Compte;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class banque {
         JFrame frame = new JFrame("Banque");
         frame.setContentPane(new banque().jpmain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(10000,10000);
+        frame.setPreferredSize(new Dimension(500,500 ));
         frame.pack();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
