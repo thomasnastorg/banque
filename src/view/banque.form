@@ -102,7 +102,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="9bf63" class="javax.swing.JList" binding="list1" default-binding="true">
+          <component id="f53c7" class="javax.swing.JTable" binding="table" custom-create="true">
             <constraints/>
             <properties/>
           </component>

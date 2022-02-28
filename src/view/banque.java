@@ -4,11 +4,16 @@ import Model.Client;
 import Model.Compte;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 import java.util.ArrayList;
+
+
+
 
 public class banque {
 
@@ -25,9 +30,77 @@ public class banque {
     private JMenuItem myDecouvert;
     private JMenuItem myClient;
     private JButton update;
+    private JTable table;
     private JList list1;
 
 
+     static Connection getConnection() {
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:mysql://46.105.30.38:3306/projetBTS", "banque", "AlwM7$!9");
+        } catch (SQLException e) {
+                System.out.println("pas de connection possible avec la BDD");
+                e.printStackTrace();
+        }
+        return con;
+    }
+
+
+     static ArrayList<Client> getUsers(){
+        ArrayList<Client> users = new ArrayList<Client>();
+        Connection con = getConnection();
+        Statement st;
+        ResultSet rs;
+        Client u;
+
+
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery("SELECT * FROM `banque`");
+          System.out.println(rs);
+            while (rs.next()){
+                 u = new Client(
+
+                         rs.getInt("id"),
+                         rs.getString("nom"),
+                         rs.getString("prenom"),
+                         rs.getString("adress"));
+                users.add(u);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return users;
+    }
+
+
+    public void toto(){
+        table = new JTable();
+        DefaultTableModel model = new DefaultTableModel();
+        Object[] columnsName = new Object[4];
+        columnsName[0] = "num";
+        columnsName[1] = "nom";
+        columnsName[2] = "prenom";
+        columnsName[3] = "adess";
+
+        model.setColumnIdentifiers(columnsName);
+
+        Object[] rowData = new Object[4];
+
+        for (int i = 0; i < getUsers().size(); i++){
+            rowData[0] = getUsers().get(i).getNum();
+            rowData[1] = getUsers().get(i).getNom();
+            rowData[2] = getUsers().get(i).getPrenom();
+            rowData[3] = getUsers().get(i).getAdresse();
+
+            model.addRow(rowData);
+        }
+        table.setModel(model);
+        System.out.println(getUsers().size());
+
+    }
 
 
     private Boolean toto = false;
@@ -37,19 +110,6 @@ public class banque {
         button1.setVisible(false);
         textField1.setVisible(false);
         etat.setVisible(false);
-
-        Client cl1 = new Client(1,"nastorg","thomas","20 rue des cavee feucheurolles");
-        Compte c1 = new Compte(1,cl1);
-
-        Client cl2 = new Client(2,"cc","jj","ss");
-        Compte c2 = new Compte(2,cl2);
-        Compte c3 = new Compte(3,cl2);
-
-        Lc.add(c1);
-        Lc.add(c2);
-        Lc.add(c3);
-        System.out.println((c1.toString()));
-
 
 
         myCredit.addActionListener(new ActionListener() {
@@ -96,15 +156,7 @@ public class banque {
         update.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DefaultListModel listModel = new DefaultListModel();
-                for (Compte c: Lc ) {
-                    listModel.addElement(c.toString());
-                }
-                /*
-                for (int i = 0; i < 10; i++) {
-                    listModel.addElement("item : " + i);
-                }*/
-                list1.setModel(listModel);
+                toto();
             }
         });
     }
@@ -129,6 +181,8 @@ public class banque {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
 
+
+
         /*
         JMenuBar myMenuBar = new JMenuBar();
         frame.add(myMenuBar);
@@ -139,5 +193,9 @@ public class banque {
         */
 
 
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

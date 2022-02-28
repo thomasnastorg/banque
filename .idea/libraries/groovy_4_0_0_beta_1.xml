@@ -31,6 +31,7 @@
       <root url="jar://$PROJECT_DIR$/lib/groovy-xml-4.0.0-beta-1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/groovy-macro-4.0.0-beta-1.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/groovy-4.0.0-beta-1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mysql-connector-java-8.0.28/mysql-connector-java-8.0.28.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
