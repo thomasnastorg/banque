@@ -6,13 +6,12 @@ import Model.Compte;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.util.ArrayList;
-
-
 
 
 public class banque {
@@ -20,7 +19,7 @@ public class banque {
     private JButton button1;
     private JTextField textField1;
     private JTextArea textArea1;
-    private  JPanel jpmain;
+    public JPanel jpmain;
     private JLabel etat;
     private JMenuBar myMenuBar;
     private JMenu MenuOperation;
@@ -30,14 +29,20 @@ public class banque {
     private JMenuItem myDecouvert;
     private JMenuItem myClient;
     private JButton update;
+    private JTable showTable;
+    private JTable table1;
     private JTable table;
-    private JList list1;
 
+
+
+    public JPanel getRootPanel(){
+        return jpmain;
+    }
 
      static Connection getConnection() {
         Connection con = null;
         try {
-            con = DriverManager.getConnection("jdbc:mysql://46.105.30.38:3306/projetBTS", "banque", "AlwM7$!9");
+            con = DriverManager.getConnection("jdbc:mysql://46.105.30.38:3306/comptes", "banque", "AlwM7$!9");
         } catch (SQLException e) {
                 System.out.println("pas de connection possible avec la BDD");
                 e.printStackTrace();
@@ -56,15 +61,15 @@ public class banque {
 
         try {
             st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM `banque`");
+            rs = st.executeQuery("SELECT * FROM `client`");
           System.out.println(rs);
             while (rs.next()){
                  u = new Client(
 
-                         rs.getInt("id"),
+                         rs.getInt("numero"),
                          rs.getString("nom"),
                          rs.getString("prenom"),
-                         rs.getString("adress"));
+                         rs.getString("adresse"));
                 users.add(u);
             }
         } catch (SQLException e) {
@@ -75,9 +80,14 @@ public class banque {
         return users;
     }
 
+    public DefaultTableModel getData(){
+        DefaultTableModel dm = new DefaultTableModel();
 
-    public void toto(){
-        table = new JTable();
+    }
+
+    private void toto(){
+
+
         DefaultTableModel model = new DefaultTableModel();
         Object[] columnsName = new Object[4];
         columnsName[0] = "num";
@@ -97,8 +107,17 @@ public class banque {
 
             model.addRow(rowData);
         }
-        table.setModel(model);
-        System.out.println(getUsers().size());
+
+        //System.out.println(getUsers().size());
+        //System.out.println(getUsers().get(1));
+
+        try {
+            showTable.setModel(model);
+        }catch (Exception h){
+            System.out.println(h);
+        }
+
+
 
     }
 
@@ -106,7 +125,10 @@ public class banque {
     private Boolean toto = false;
     private ArrayList<Compte> Lc = new ArrayList<Compte>();
 
+
+
     public banque() {
+
         button1.setVisible(false);
         textField1.setVisible(false);
         etat.setVisible(false);
@@ -121,8 +143,6 @@ public class banque {
                 button1.setVisible(true);
                 button1.setText("crediter");
             }
-
-
 
         });
         myDebiter.addActionListener(new ActionListener() {
@@ -159,6 +179,8 @@ public class banque {
                 toto();
             }
         });
+        //toto();
+
     }
 
     private void refreceh(DefaultListModel test){
@@ -171,29 +193,6 @@ public class banque {
         liste.setModel(test);*/
     }
 
-    public static void main(String[] args) {
-
-        JFrame frame = new JFrame("Banque");
-        frame.setContentPane(new banque().jpmain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(500,500 ));
-        frame.pack();
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-
-
-
-        /*
-        JMenuBar myMenuBar = new JMenuBar();
-        frame.add(myMenuBar);
-        myMenuBar.setBounds(0,0,1000,1000);
-        JMenu MenuOperation = new JMenu("Operation");
-        myMenuBar.add(MenuOperation);
-        frame.setVisible(true);
-        */
-
-
-    }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
