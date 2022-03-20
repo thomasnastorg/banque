@@ -20,7 +20,9 @@ public class user {
     private JLabel myPrenom;
     private JLabel myAdresse;
 
-
+    public void setText(String num){
+        textField1.setText(num);
+    }
 
     user(){
 

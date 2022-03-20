@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
+import static Model.Sql.getUsers;
+
 
 public class banque {
 
@@ -39,51 +41,8 @@ public class banque {
         return jpmain;
     }
 
-     static Connection getConnection() {
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://46.105.30.38:3306/comptes", "banque", "AlwM7$!9");
-        } catch (SQLException e) {
-                System.out.println("pas de connection possible avec la BDD");
-                e.printStackTrace();
-        }
-        return con;
-    }
 
 
-     static ArrayList<Client> getUsers(){
-        ArrayList<Client> users = new ArrayList<Client>();
-        Connection con = getConnection();
-        Statement st;
-        ResultSet rs;
-        Client u;
-
-
-        try {
-            st = con.createStatement();
-            rs = st.executeQuery("SELECT * FROM `client`");
-          System.out.println(rs);
-            while (rs.next()){
-                 u = new Client(
-
-                         rs.getInt("numero"),
-                         rs.getString("nom"),
-                         rs.getString("prenom"),
-                         rs.getString("adresse"));
-                users.add(u);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-        return users;
-    }
-
-    public DefaultTableModel getData(){
-        DefaultTableModel dm = new DefaultTableModel();
-
-    }
 
     private void toto(){
 
@@ -169,6 +128,8 @@ public class banque {
                     frame1.setLocationRelativeTo(null);
                     toto = true;
                 }
+
+
             }
         });
 
@@ -181,6 +142,18 @@ public class banque {
         });
         //toto();
 
+        showTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                String num =  showTable.getValueAt(showTable.getEditingRow(),1).toString();
+                String nom =  showTable.getValueAt(showTable.getEditingRow(),2).toString();
+                String prenom =  showTable.getValueAt(showTable.getEditingRow(),3).toString();
+                String adrs =  showTable.getValueAt(showTable.getEditingRow(),4).toString();
+
+
+            }
+        });
     }
 
     private void refreceh(DefaultListModel test){
