@@ -1,19 +1,16 @@
 package Model;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 public class Compte {
     private int num;
     private Client client;
     private double solde;
     private double decouvert;
 
-    public Compte()
+    public Compte(int num, double solde, double decouvert)
     {
-
+        this.num = num;
+        this.solde = solde;
+        this.decouvert = decouvert;
     }
 
     public Compte(int n, Client c)
@@ -76,7 +73,7 @@ public class Compte {
 
     @Override
     public String toString() {
-        return"Nom: " + client.getNom() + " Prenom: " + client.getPrenom() + " Adresse: " + client.getAdresse() + " solde: "+ getSolde()  ;
-
+        //return"Nom: " + client.getNom() + " Prenom: " + client.getPrenom() + " Adresse: " + client.getAdresse() + " solde: "+ getSolde()  ;
+        return "solde" + getNum();
     }
 }

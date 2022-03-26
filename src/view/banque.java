@@ -1,19 +1,17 @@
 package view;
 
-import Model.Client;
-import Model.Compte;
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.*;
-import java.util.ArrayList;
 
-import static Model.Sql.getUsers;
+import static Controleur.DataClient.comptClient;
+import static Controleur.DataClient.getUsers;
+import static view.user.setData;
 
 
 public class banque {
@@ -32,8 +30,9 @@ public class banque {
     private JMenuItem myClient;
     private JButton update;
     private JTable showTable;
-    private JTable table1;
-    private JTable table;
+    private JScrollPane test;
+    private JTable showClient;
+    private String num;
 
 
 
@@ -46,13 +45,13 @@ public class banque {
 
     private void toto(){
 
-
         DefaultTableModel model = new DefaultTableModel();
         Object[] columnsName = new Object[4];
         columnsName[0] = "num";
         columnsName[1] = "nom";
         columnsName[2] = "prenom";
         columnsName[3] = "adess";
+
 
         model.setColumnIdentifiers(columnsName);
 
@@ -75,14 +74,9 @@ public class banque {
         }catch (Exception h){
             System.out.println(h);
         }
-
-
-
     }
 
-
     private Boolean toto = false;
-    private ArrayList<Compte> Lc = new ArrayList<Compte>();
 
 
 
@@ -127,8 +121,9 @@ public class banque {
                     frame1.setVisible(true);
                     frame1.setLocationRelativeTo(null);
                     toto = true;
+                    setData(num);
                 }
-
+                //set les champs text
 
             }
         });
@@ -146,15 +141,24 @@ public class banque {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String num =  showTable.getValueAt(showTable.getEditingRow(),1).toString();
-                String nom =  showTable.getValueAt(showTable.getEditingRow(),2).toString();
-                String prenom =  showTable.getValueAt(showTable.getEditingRow(),3).toString();
-                String adrs =  showTable.getValueAt(showTable.getEditingRow(),4).toString();
+                num =  showTable.getValueAt(showTable.getSelectedRow(),0).toString();
+                String nom =  showTable.getValueAt(showTable.getSelectedRow(),1).toString();
+                String prenom =  showTable.getValueAt(showTable.getSelectedRow(),2).toString();
+                String adrss =  showTable.getValueAt(showTable.getSelectedRow(),3).toString();
+                System.out.println(num+ " " + nom +" " + prenom +" " + adrss);
+
+                try {
+                    showClient.setModel(comptClient(Integer.parseInt(num)));
+                }catch (Exception h){
+                    System.out.println(h);
+                }
 
 
             }
         });
     }
+
+
 
     private void refreceh(DefaultListModel test){
        /* for (Compte c: Lc  ) {

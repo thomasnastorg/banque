@@ -5,11 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
+
 public class user {
 
 
 
-    private JTextField textField1;
+    private  JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
@@ -19,15 +21,17 @@ public class user {
     private JLabel muNom;
     private JLabel myPrenom;
     private JLabel myAdresse;
+    private static String num1;
 
-    public void setText(String num){
-        textField1.setText(num);
-    }
 
     user(){
+    textField1.setText(num1);
 
 
 
+    }
 
+    public static void setData(String num){
+        num1 = num;
     }
 }
