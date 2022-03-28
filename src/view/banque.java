@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 
 import static Controleur.DataClient.comptClient;
 import static Controleur.DataClient.getUsers;
-import static view.user.setData;
+
 
 
 public class banque {
@@ -33,6 +33,9 @@ public class banque {
     private JScrollPane test;
     private JTable showClient;
     private String num;
+    private String nom;
+    private String prenom;
+    private String adrss;
 
 
 
@@ -113,15 +116,13 @@ public class banque {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(toto == false ) {
-                    JFrame frame1 = new JFrame("User");
-                    frame1.setContentPane(new user().jpuser);
-                    frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame1.setSize(10000, 10000);
-                    frame1.pack();
-                    frame1.setVisible(true);
-                    frame1.setLocationRelativeTo(null);
+                    user sf = new user();
+                    sf.User.setVisible(true);
+                    sf.textField1.setText(num);
+                    sf.textField2.setText(nom);
+                    sf.textField3.setText(prenom);
+                    sf.textField4.setText(adrss);
                     toto = true;
-                    setData(num);
                 }
                 //set les champs text
 
@@ -142,9 +143,9 @@ public class banque {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 num =  showTable.getValueAt(showTable.getSelectedRow(),0).toString();
-                String nom =  showTable.getValueAt(showTable.getSelectedRow(),1).toString();
-                String prenom =  showTable.getValueAt(showTable.getSelectedRow(),2).toString();
-                String adrss =  showTable.getValueAt(showTable.getSelectedRow(),3).toString();
+                nom =  showTable.getValueAt(showTable.getSelectedRow(),1).toString();
+                prenom =  showTable.getValueAt(showTable.getSelectedRow(),2).toString();
+                adrss =  showTable.getValueAt(showTable.getSelectedRow(),3).toString();
                 System.out.println(num+ " " + nom +" " + prenom +" " + adrss);
 
                 try {

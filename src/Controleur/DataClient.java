@@ -104,17 +104,20 @@ public class DataClient {
         return modelCompt;
 
     }
-    public Boolean update(String numero,String nom,String prenom,String adresse){
-        String sql= "UPDATE client SET numero='"+numero+"',nom='"+nom+"',prenom='"+prenom+"',adresse='"+adresse+"'";
+    public static Boolean update(int numero,String nom,String prenom,String adresse){
+        String sql= "UPDATE client SET nom= '"+nom+"' ,prenom='"+prenom+"',adresse='"+adresse+"' WHERE client.numero = '"+numero+"'";
         try{
+            System.out.println(numero+ " " + nom+ " "+ prenom+ " " + adresse);
+            System.out.println(sql);
             Connection con =getConnection();
             Statement s = con.createStatement();
-            s.executeQuery(sql);
+            s.executeUpdate(sql);
             return true;
 
 
         }catch (Exception e){
             e.printStackTrace();
+            System.out.println(e);
             return false;
         }
     }

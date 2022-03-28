@@ -5,17 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static Controleur.DataClient.*;
 
 
 public class user {
 
 
 
-    private  JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    public  JTextField textField1;
+    public JTextField textField2;
+    public JTextField textField3;
+    public JTextField textField4;
     private JButton validerButton;
+    JFrame User;
     public JPanel jpuser;
     private JLabel myNum;
     private JLabel muNom;
@@ -25,13 +27,25 @@ public class user {
 
 
     user(){
-    textField1.setText(num1);
+        initializa();
 
 
+        validerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                update(Integer.parseInt(textField1.getText()),textField2.getText(),textField3.getText(),textField4.getText());
 
+            }
+        });
     }
 
-    public static void setData(String num){
-        num1 = num;
+    private void initializa(){
+        User = new JFrame("User");
+        User.setContentPane(jpuser);
+        User.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        User.setSize(10000, 10000);
+        User.pack();
+        User.setLocationRelativeTo(null);
+
     }
 }
